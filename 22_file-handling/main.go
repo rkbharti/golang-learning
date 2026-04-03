@@ -1,42 +1,57 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
+	"io"
 	"os"
 )
 
 func main() {
-	// we implemt os.Create to create a nmed text file and use defer to close it again after all function run
-	// file, err := os.Create("xyz.txt")
+	// create a file
+	// file, err := os.Create("abc.txt")
 	// if err != nil {
-	// 	fmt.Println("error at creating file ", err)
+	// 	fmt.Println("err at creating file ")
 	// 	return
 	// }
+
+	// // write in file 
+	// content := "HEy this is RAVI "
+	// _,errors:=io.WriteString(file, content)
+	// if errors != nil {
+	// 	fmt.Println("error at writing in file ", errors)
+	// 	return
+	// }
+
+	// fmt.Println("file created succesfullly")
+
 	// defer file.Close()
 
-	// fmt.Println("file created succesfully")
+	// read from file 
 
-	// // write something into the file
-	// content := "HEllo ! whtsapp GUyzzz"
-
-	// _, err2 := io.WriteString(file, content)
-	// if err2 != nil {
-	// 	fmt.Println("error at writing", err2)
-	// 	return
-	// }
-	// fmt.Println("content added succesfully")
-
-	// open and read from the file using bufio
-	file3, err := os.Open("xyz.txt")
+	file, err:=os.Open("abc.txt")
 	if err != nil {
-		fmt.Println("error at opeing file ", err)
+		fmt.Println("err at creating file ", err)
 		return
 	}
-	defer file3.Close()
+	defer file.Close()
 
-	scanner := bufio.NewScanner(file3)
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
+	// read file using buffer
+	buffer := make([]byte , 1024)
+
+	for {
+		n, err:=file.Read(buffer)
+		if err == io.EOF{
+			break
+		}
+		if err != nil{
+			fmt.Println("error at readding file ", err)
+			return 
+		}
+		fmt.Println("file contains in abc.txt is: ", string(buffer[:n]))
+
+
 	}
+	
+
+
 }
