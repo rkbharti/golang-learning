@@ -1,5 +1,7 @@
 package main
 
+// payment system using interface and polymorphism
+
 import (
 	"fmt"
 	"time"
